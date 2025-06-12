@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>&lt;model-viewer&gt; template</title>
+    <meta charset="utf-8">
+    <meta name="description" content="&lt;model-viewer&gt; template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./styles.css" rel="stylesheet"/>
+
+    
+<style>
+  /* Model viewer background */
+  model-viewer {
+    background-color: #ABB7AB;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+  }
+
+  /* Button container styling */
+  .button-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+    background-color: #abb7ab;
+    padding: 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Desktop styles */
+  @media (min-width: 768px) {
+    .button-panel {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      left: auto;
+      max-width: 300px;
+      border-radius: 6px;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button-group-title {
+    text-align: left;
+    margin-bottom: 3px;
+    font-weight: bold;
+    color: #333;
+    font-size: 12px;
+    padding-left: 2px;
+  }
+
+  .button-group-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max-content, 1fr));
+    gap: 6px;
+    width: 100%;
+  }
+
+  .control-button {
+    padding: 8px 10px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    border-radius: 3px;
+    background: #014c01;
+    color: #ffffff;
+    border: 1px solid #013a01;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .control-button:hover {
+    background: #013a01;
+  }
+
+  /* AR button styling */
+  #ar-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 8px 10px;
+    font-size: 12px;
+    min-width: 120px;
+    text-align: center;
+    background-color: #014c01;
+    color: #ffffff;
+    border: 1px solid #013a01;
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  #ar-button:hover {
+    background: #013a01;
+  }
+
+
+  @media screen and (max-width: 768px) {
+  .controls-container {
+    position: fixed;
+    bottom: -10px; /* Adjust as needed */
+    top: auto;
+    right: 0;
+    left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9); /* Scale down entire container slightly */
+  }
+
+
+  /* Button container styling */
+.button-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1;
+    background-color: #abb7ab;
+    padding: 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: auto;
+    /* Add margin to the model-viewer to prevent overlap */
+    margin-bottom: 0;
+    /* Ensure the panel is above the AR button */
+    z-index: 1;
+}
+
+/* Add margin to model-viewer in mobile view */
+@media (max-width: 767px) {
+    model-viewer {
+        height: calc(100vh - 200px); /* Adjust this value based on your button panel height */
+        padding-bottom: 200px; /* Same as height reduction to prevent cutoff */
+    }
+    
+    .button-panel {
+        height: auto;
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+    .button-panel {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        left: auto;
+        max-width: 300px;
+        border-radius: 6px;
+        /* Reset model-viewer height for desktop */
+    }
+    
+    model-viewer {
+        height: 100vh;
+        padding-bottom: 0;
+    }
+}
+
+</style>
+
+
+
+
+
+
+
+  </head>
+  <body>
+    <!-- <model-viewer> HTML element -->
+    <model-viewer id="model"src="DVE Meterial and Animations.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.png" shadow-intensity="1" animation-name="Explode" camera-orbit="344.7deg 91.16deg 580m" field-of-view="30deg">
+      
+        <button class="Hotspot" slot="hotspot-1" data-surface="1 0 1320 1321 1322 0.836 0.050 0.114" data-visibility-attribute="visible"onMouseOver="addhotspot1()" onMouseOut="removehotspot1()">
+          <div class="HotspotAnnotation" id="hotspot1"style="visibility:hidden">Screen</div>
+      </button>
+      
+      <button class="Hotspot" slot="hotspot-2" data-surface="2 0 3522 3523 3524 0.175 0.398 0.426" data-visibility-attribute="visible"onMouseOver="addhotspot2()" onMouseOut="removehotspot2()">
+          <div class="HotspotAnnotation" id="hotspot2"style="visibility:hidden">Handle</div>
+      </button>
+      
+      <button class="Hotspot" slot="hotspot-3" data-surface="8 0 1296 1297 1298 0.229 0.717 0.054" data-visibility-attribute="visible"onMouseOver="addhotspot3()" onMouseOut="removehotspot3()">
+          <div class="HotspotAnnotation" id="hotspot3"style="visibility:hidden">Camera Button</div>
+      </button>
+      
+      <button class="Hotspot" slot="hotspot-4" data-surface="10 0 231 232 233 0.260 0.476 0.264" data-visibility-attribute="visible"onMouseOver="addhotspot4()" onMouseOut="removehotspot4()">
+          <div class="HotspotAnnotation" id="hotspot4"style="visibility:hidden">Power Button</div>
+      </button>
+      
+      <button class="Hotspot" slot="hotspot-5" data-surface="5 0 663 660 657 0.429 0.049 0.522" data-visibility-attribute="visible"onMouseOver="addhotspot5()" onMouseOut="removehotspot5()">
+          <div class="HotspotAnnotation" id="hotspot5"style="visibility:hidden">Camera</div>
+      </button>
+      
+      <button class="Hotspot" slot="hotspot-6" data-surface="0 0 10848 10849 10850 0.413 0.464 0.123" data-visibility-attribute="visible"onMouseOver="addhotspot6()" onMouseOut="removehotspot6()">
+          <div class="HotspotAnnotation" id="hotspot6"style="visibility:hidden">Drawing Stand</div>
+      </button>
+      
+      <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+      </div>
+      <button slot="ar-button" id="ar-button">
+          View in your space
+      </button>
+      <div id="ar-prompt">
+          <img src="ar_hand_prompt.png">
+
+       
+      </div>
+
+ 
+
+
+
+
+      
+
+<div class="button-panel">
+  <!-- Variant Buttons -->
+  <div class="button-group">
+    <div class="button-group-title">Variants</div>
+    <div class="button-group-buttons">
+           <button class="control-button" onClick="VBtn01()">Green</button>
+           <button class="control-button" onClick="VBtn02()">Red</button>
+           <button class="control-button" onClick="VBtn03()">Wood</button>
+</div>
+  </div>
+
+  <!-- Animation Buttons -->
+  <div class="button-group">
+    <div class="button-group-title">Animations</div>
+    <div class="button-group-buttons">
+           <button class="control-button" onClick="Btn01()">Exploded View</button>
+           <button class="control-button" onClick="Btn02()">Drawing Stand</button>
+           <button class="control-button" onClick="Btn03()"> Power Button </button>
+           <button class="control-button" onClick="Btn04()">Camera Button</button>
+           <button class="control-button" onClick="pauseAnimation()">Pause</button>
+</div>
+  </div>
+
+
+
+ <!-- Position Buttons -->
+  <div class="button-group">
+    <div class="button-group-title">Views</div>
+    <div class="button-group-buttons">
+           <button class="control-button" onClick="setOrbit('361.3deg 89.92deg 588.9m')">Front</button>
+           <button class="control-button" onClick="setOrbit('360.1deg 2.071deg 588.9m')">Top</button>
+           <button class="control-button" onClick="setOrbit('360.1deg 178.8deg 588.9m')">Bottom</button>
+           <button class="control-button" onClick="setOrbit('89.07deg 94.06deg 588.9m')">Side</button>
+</div>
+  </div>
+</div>
+    </model-viewer>  
+
+<script>
+          function setOrbit(orbit){
+                     document.getElementById('model').cameraOrbit=orbit;
+          }
+</script>
+
+
+
+
+<script>
+                          function addhotspot1(){
+                                    document.getElementById("hotspot1").style.visibility="visible"
+                          }
+                          function removehotspot1(){
+                                    document.getElementById("hotspot1").style.visibility="hidden";
+                          }
+
+                          function addhotspot2(){
+                                    document.getElementById("hotspot2").style.visibility="visible"
+                          }
+                          function removehotspot2(){
+                                    document.getElementById("hotspot2").style.visibility="hidden";
+                          }   
+                                 
+                          function addhotspot3(){
+                                    document.getElementById("hotspot3").style.visibility="visible"
+                          }
+                          function removehotspot3(){
+                                    document.getElementById("hotspot3").style.visibility="hidden";
+                          }   
+
+                          function addhotspot4(){
+                                    document.getElementById("hotspot4").style.visibility="visible"
+                          }
+                          function removehotspot4(){
+                                    document.getElementById("hotspot4").style.visibility="hidden";
+                          }          
+
+                          function addhotspot5(){
+                                    document.getElementById("hotspot5").style.visibility="visible"
+                          }
+                          function removehotspot5(){
+                                    document.getElementById("hotspot5").style.visibility="hidden";
+                          }     
+                          
+                          function addhotspot6(){
+                                    document.getElementById("hotspot6").style.visibility="visible"
+                          }
+                          function removehotspot6(){
+                                    document.getElementById("hotspot6").style.visibility="hidden";
+                          }          
+
+
+
+</script>
+
+
+<script>
+    function VBtn01(){
+             document.getElementById('model').variantName='Green';
+    }
+    function VBtn02(){
+             document.getElementById('model').variantName='Red';
+    }
+    function VBtn03(){
+             document.getElementById('model').variantName='Wood';
+    }
+
+
+</script>
+
+<script>
+    function Btn01(){
+             document.getElementById('model').pause();   
+             document.getElementById('model').animationName='Explode'
+             document.getElementById('model').play();
+    }
+
+    function Btn02(){
+             document.getElementById('model').pause();   
+             document.getElementById('model').animationName='Stand'
+             document.getElementById('model').play();
+    }
+
+    function Btn03(){
+             document.getElementById('model').pause();   
+             document.getElementById('model').animationName='On'
+             document.getElementById('model').play();
+    }
+
+    function Btn04(){
+             document.getElementById('model').pause();   
+             document.getElementById('model').animationName='Camera'
+             document.getElementById('model').play();
+    }
+
+    function pauseAnimation(){
+        document.getElementById('model').pause();
+    }
+
+
+
+
+</script>
+
+
+
+
+    <script src="script.js"></script>
+    <!-- Loads <model-viewer> for browsers: -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  </body>
+</html>
